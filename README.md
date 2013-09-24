@@ -24,6 +24,7 @@
 1. NellyTweet.py: This is the python script to be run by the Raspberry Pi.
 
 ***TO BE ADDED***
+
 2. MotorControl.ino: this is the sketch executed by the Arduino which listens to serial communication.
 
 3. Wiring Diagram: The RPi connects to Arduino via USB B->A Cable. The Arduino has an Adafruit motor shield, which drives the Stepper.
@@ -38,6 +39,7 @@ twitter
 datetime
 Scheduler (from APScheduler)
 Choice (from Random)
+Logging
 
 ***MotorControl.ino***
 Adafruit Motor Shield Library (#AFmotor)

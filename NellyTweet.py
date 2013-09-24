@@ -9,9 +9,11 @@
 
 import twitter
 import datetime
+"""I looked at doing this three different ways before I settled on the one I thought worked best.
+They're commented out, but feel free to explore."""
 #from datetime import datetime
-from threading import Timer
-from crontab import CronTab
+#from threading import Timer
+#from crontab import CronTab
 from apscheduler.scheduler import Scheduler
 import logging
 from random import choice
