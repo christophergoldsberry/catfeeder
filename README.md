@@ -1,31 +1,42 @@
-# Raspberry PI SD Installer OS X
+<<<<<<< HEAD
+# Twitter, Raspberry Pi and Arduino-Powered Cat Feeder
 
-### Shell Script for creating Raspberry PI SD card on OS X.
-
----
-
-#####Usage:
-
-1. Simply execute the install script from Terminal and pass the image to write. (Image, not ZIP)
-
-	eg. `sudo ./install ~/Downloads/wheezyDebian.img`
-
-2. Select the disk to write the image to by selecting the disk number provided in the output.
-
-3. Wait for disk to finish writing. You can check the write progress with `Ctrl+T`.
+### It's complicated, but it's the only way I know how to do it (right now)
 
 ---
 
-#####CAUTION:
+#####Concept:
 
-**Make absolutely sure to select the correct disk from he list of mounted disks output by the script.
-Selecting your system drive WILL overwrite it!**
+1. A Raspberry Pi has a set of feedings scheduled to repeat daily
 
-If you are unsure which disk you need to select you can remove the SD card, check the mounted disks by running `df -hl` and 
-then re-check after re-inserting the SD card.
+2. When those feeding actions are called, the RPi sends a serial comamnd to an Arduino
 
-The disk name will likely be something similar to: `/dev/disk2s1`
+3. The serial command is read by the Arduino, which turns a stepper motor, driving a food hopper.
+
+4. Througout the day, the RPi scans twitter for activity on the account @nellysfood.
+
+5. If certain hashtags are found in @ mentions, the RPi directs the Arduino to perform different actions
 
 ---
 
-####[Download SD Card Images here.](http://www.raspberrypi.org/downloads)
+#####Current Contents:
+
+1. NellyTweet.py: This is the python script to be run by the Raspberry Pi.
+
+***TO BE ADDED**
+2. MotorControl.ino: this is the sketch executed by the Arduino which listens to serial communication.
+
+3. Wiring Diagram: The RPi connects to Arduino via USB B->A Cable. The Arduino has an Adafruit motor shield, which drives the Stepper.
+---
+
+####Dependencies:
+
+***NellyTweet.py***
+Libraries Used: 
+ *twitter
+ *datetime
+ *Scheduler (from APScheduler)
+ *Choice (from Random)
+
+***MotorControl.ino***
+ *Adafruit Motor Shield Library (#AFmotor)
