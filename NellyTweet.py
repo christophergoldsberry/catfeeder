@@ -17,6 +17,7 @@ They're commented out, but feel free to explore."""
 from apscheduler.scheduler import Scheduler
 import logging
 from random import choice
+import serial
 
 logging.basicConfig()
 
@@ -24,9 +25,17 @@ logging.basicConfig()
 #---Variables--------
 #--------------------
 
+
+
 #setup a scheduler object
 sched = Scheduler()
 sched.start()
+
+#Set up a serial object that connects to whichever port
+#the arduino is on ACM0 or ACM1; most likely ACM0
+device = '/dev/ttyACM0'
+baud = 9600
+ser = serial.new(device,baud)
 
 
 #Set Up API account access for @Nellysfood
@@ -196,7 +205,7 @@ def searchForTweets():
 			user = mention.user.id
 			username = mention.user.name
 			command = parseCommandWord(mention.text)
-			print "saving pieces of tweet to memory"
+			if debug is True: print "saving pieces of tweet to memory"
 			fullText = mention.text
 			statusID = mention.id
 			tweet['statusID']=statusID
@@ -206,11 +215,14 @@ def searchForTweets():
 			tweet['username']= username
 		#determine what kind of command has been made
 			if command in controlOptions:
+				if debug is True: print "Picking command option for "+command
+				#picks the correct dictionary value from controlOptions and executes the function with a paramater 'tweet' object
 				controlOptions[command](tweet)
 			else: api.PostUpdate(status = nellySpeak('noCommandFound',tweet),in_reply_to_status_id = tweet['statusID'])
+		#if the user is not allowed, tell them.
 		else: api.PostUpdate(status= "You aren't on my allowed users list! Talk to @goldsberry to get access!", in_reply_to_status_id = tweet['statusID'])
 	except IndexError:
-		print "No New Mentions. Will re-call in 1 minute."
+		if debug is True: print "No New Mentions. Will re-call in 1 minute."
 	#mention.id if statement will fail silently if no new mentions exist
 	#if (mention[0].text).find('test'):
 	#if (mention[0].user.name) == 'goldsberry':
@@ -235,6 +247,7 @@ def setTomorrowsMeals():
 	print "Evening: " + eveningMealTime.strftime("%c")
 	print "Midnight: " + midnightMealTime.strftime("%c")
 	print "Reset: " + timeToSetNextMeals.strftime("%c")
+	twitter.PostUpdate(status="Tomorrow's meals set!",in)
 
 	if debug is True:
 		if treatsAlreadyGivenToday is False:
@@ -250,6 +263,7 @@ def setTomorrowsMeals():
 
 def feedingAction(meal):
 	if debug is True: print meal + " called."
+	ser.write('a')
 	api.PostUpdate(status="It's currently "+datetime.datetime.today().strftime("%c")+" and I should be getting fed my "+ meal + " meal. Meow!")
 
 
@@ -289,7 +303,7 @@ def nellySpeak(kindOfAction,tweet):
 		"@Goldsberry never gives me treats. I like you better",
 		"If "+tweet['username']+" wants me to move to their house, I probably would. If I felt like it.",
 		"OH GOD MOAR PLEEZ",
-		"[the sounds of Nelly eating way to goddamn fast]"
+		"[the sounds of Nelly eating way too goddamn fast]"
 		]
 	elif kindOfAction == 'noTreat':
 		potentialResponses=[
@@ -317,7 +331,9 @@ def nellySpeak(kindOfAction,tweet):
 #Function Dictionary
 controlOptions = {'updatemealtime' : updateMealTime,
 				  'addeveningmeal' : addEveningMeal,
-				  'givetreat' : giveTreat
+				  'givetreat' : giveTreat,
+				  'feednow' : feedNow
+
 }
 
 #tweetSearch= Timer(60,searchForTweets)
