@@ -350,3 +350,5 @@ if datetime.datetime.today() < timeToSetNextMeals: setNextDayMealTimes = sched.a
 lastTwitterStatusID = 1 #updateLastTweetID()
 
 sched.add_interval_job(searchForTweets,minutes=1)
+
+api.PostUpdate(status="The Nelly Feeder is Initalized! Meow!")
