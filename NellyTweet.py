@@ -331,8 +331,8 @@ def nellySpeak(kindOfAction,tweet):
 #Function Dictionary
 controlOptions = {'updatemealtime' : updateMealTime,
 				  'addeveningmeal' : addEveningMeal,
-				  'givetreat' : giveTreat,
-				  'feednow' : feedNow
+				  'givetreat' : giveTreat#,
+				 # 'feednow' : feedNow
 
 }
 
