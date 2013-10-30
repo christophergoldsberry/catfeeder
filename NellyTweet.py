@@ -33,9 +33,9 @@ sched.start()
 
 #Set up a serial object that connects to whichever port
 #the arduino is on ACM0 or ACM1; most likely ACM0
-device = '/dev/ttyACM0'
+device = "/dev/ttyACM0"
 baud = 9600
-ser = serial.new(device,baud)
+ser = serial.Serial(device,baud)
 
 
 #Set Up API account access for @Nellysfood
@@ -247,7 +247,7 @@ def setTomorrowsMeals():
 	print "Evening: " + eveningMealTime.strftime("%c")
 	print "Midnight: " + midnightMealTime.strftime("%c")
 	print "Reset: " + timeToSetNextMeals.strftime("%c")
-	twitter.PostUpdate(status="Tomorrow's meals set!",in)
+	twitter.PostUpdate(status="Tomorrow's meals set!")
 
 	if debug is True:
 		if treatsAlreadyGivenToday is False:
