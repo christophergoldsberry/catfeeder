@@ -263,7 +263,7 @@ def setTomorrowsMeals():
 
 def feedingAction(meal):
 	if debug is True: print meal + " called."
-	ser.write('a')
+	ser.write('1')
 	api.PostUpdate(status="It's currently "+datetime.datetime.today().strftime("%c")+" and I should be getting fed my "+ meal + " meal. Meow!")
 
 
