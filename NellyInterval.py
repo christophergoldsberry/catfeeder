@@ -33,13 +33,18 @@ midnightMealTime = setTime(23,00)
 
 
 now = datetime.datetime.today()
-
+'''
 #Test Timing Blocks
 morningMealTime = setTime(now.hour, now.minute+3)
 eveningMealTime = setTime(now.hour, now.minute+5)
 midnightMealTime = setTime(now.hour, now.minute+7)
 timeToSetNextMeals = setTime(now.hour, now.minute+9)
+'''
 
 morningFeeding = sched.add_interval_job(feedingAction,hours=24,start_date=morningMealTime,args=['morning',True])
 #eveningFeeding = sched.add_interval_job(feedingAction,hours=24,start_date=eveningMealTime,args=['evening', True])
 midnightFeeding = sched.add_interval_job(feedingAction,hours=24,start_date=midnightMealTime,args=['midnight', True])
+
+print "Morning Meal set for "+morningMealTime.strftime("%c")
+#print "Evening Meal set for "+eveningMealTime.strftime("%c")
+print "Midnight meal set for "+midnightMealTime.strftime("%c")
