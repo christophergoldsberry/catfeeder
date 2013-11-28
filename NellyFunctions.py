@@ -1,4 +1,9 @@
 import datetime
+import serial
+
+device = '/dev/ttyACM0'
+baud = 9600
+ser = serial.Serial(device,baud)
 
 def setTime(hours, minutes):
 	now = datetime.datetime.today()
@@ -8,5 +13,5 @@ def setTime(hours, minutes):
 
 def feedingAction(meal, debug):
 	if debug is True: print meal + " called."
-	#ser.write('1')
+	ser.write('1')
 	#api.PostUpdate(status="It's currently "+datetime.datetime.today().strftime("%c")+" and I should be getting fed my "+ meal + " meal. Meow!")
