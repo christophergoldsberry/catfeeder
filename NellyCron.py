@@ -31,18 +31,17 @@ api=twitter.Api(consumer_key= consumer_key,consumer_secret=consumer_secret,acces
 
 
 #Commented out, because will throw error
-'''
+
 device = '/dev/ttyACM0'
 baud = 9600
 ser = serial.Serial(device,baud)
-'''
+
 
 now = datetime.datetime.today()
 
 def feedingAction(meal, debug):
 	if debug is True: print "It is " + now.strftime("%c") + " and Nelly is being fed."
 	api.PostUpdate(status="It is  " + now.strftime("%c") + " and Nelly is being fed.")
-	#ser.write('1')
-	#api.PostUpdate(status="It's currently "+datetime.datetime.today().strftime("%c")+" and I should be getting fed my "+ meal + " meal. Meow!")
+	ser.write('1')
 
 feedingAction(now,True)
